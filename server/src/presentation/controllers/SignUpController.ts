@@ -1,15 +1,16 @@
-import { IController } from '.'
+import { IController, ControllerResponse } from '.'
 import { CreateUser } from '../../domain/useCases'
 
-type Request = {
+export type Request = {
   name: string
   email: string
   password: string
 }
 
-export class SignUpController implements IController<Request> {
+export class SignUpController implements IController {
   constructor(private createUser: CreateUser) {}
-  async handle(req: Request) {
+
+  async handle(req: Request): Promise<ControllerResponse> {
     try {
       await this.createUser.execute(req)
 
