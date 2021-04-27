@@ -1,13 +1,5 @@
 import { InvalidParamError, MissingParamError } from '../errors'
 
-interface IUser {
-  id: string
-  name: string
-  email: string
-  password: string
-  validate: (params: IUserData) => void
-}
-
 export interface IUserData {
   id: string
   name: string
@@ -15,11 +7,11 @@ export interface IUserData {
   password: string
 }
 
-export class User implements IUser {
-  id: string
-  email: string
-  password: string
-  name: string
+export class User {
+  public readonly id: string
+  public readonly email: string
+  public readonly password: string
+  public readonly name: string
 
   constructor(params: IUserData) {
     this.validate(params)
