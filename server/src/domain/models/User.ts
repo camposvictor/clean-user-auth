@@ -37,11 +37,11 @@ export class User implements IUser {
       }
     })
 
-    if (params.name.length <= 2 || params.name.length >= 256) {
+    if (params.name.length < 2 || params.name.length > 256) {
       throw new InvalidParamError('name')
     }
 
-    if (params.password.length <= 2 || params.password.length >= 256) {
+    if (params.password.length < 6 || params.password.length > 256) {
       throw new InvalidParamError('password')
     }
     const emailTester = /^[-!#$%&'*+/0-9=?A-Z^_a-z`{|}~](\.?[-!#$%&'*+/0-9=?A-Z^_a-z`{|}~])*@[a-zA-Z0-9](-*\.?[a-zA-Z0-9])*\.[a-zA-Z](-?[a-zA-Z0-9])+$/
