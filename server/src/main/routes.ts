@@ -5,3 +5,5 @@ import { makeSignUpController } from './factories'
 const router = Router()
 
 router.post('/signup', ExpressAdapter.route(makeSignUpController()))
+
+export default router
