@@ -1,3 +1,4 @@
+import { IController } from '.'
 import { CreateUser } from '../../domain/useCases'
 
 type Request = {
@@ -6,7 +7,7 @@ type Request = {
   password: string
 }
 
-export class SignUpController {
+export class SignUpController implements IController<Request> {
   constructor(private createUser: CreateUser) {}
   async handle(req: Request) {
     try {
@@ -14,13 +15,14 @@ export class SignUpController {
 
       return {
         statusCode: 201,
+        body: {},
       }
     } catch (error) {
       return {
+        statusCode: 400,
         body: {
           error: error.message || 'Unexpected error',
         },
-        statusCode: 400,
       }
     }
   }
