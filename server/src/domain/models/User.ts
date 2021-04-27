@@ -5,7 +5,14 @@ interface IUser {
   name: string
   email: string
   password: string
-  validate: (params: Omit<IUser, 'validate'>) => void
+  validate: (params: IUserData) => void
+}
+
+export interface IUserData {
+  id: string
+  name: string
+  email: string
+  password: string
 }
 
 export class User implements IUser {
@@ -14,7 +21,7 @@ export class User implements IUser {
   password: string
   name: string
 
-  constructor(params: IUser) {
+  constructor(params: IUserData) {
     this.validate(params)
 
     this.id = params.id
@@ -23,7 +30,7 @@ export class User implements IUser {
     this.name = params.name
   }
 
-  validate(params: Omit<IUser, 'validate'>) {
+  validate(params: IUserData) {
     Object.entries(params).forEach(([param, value]) => {
       if (!value.trim()) {
         throw new MissingParamError(param)

@@ -22,11 +22,18 @@ export class CreateUser {
     const id = this.idGenerator.generate()
     const hashedPassword = await this.hasher.hash(params.password)
 
-    await this.userRepository.save({
+    const user = new User({
       email: params.email,
       name: params.name,
       id,
       password: hashedPassword,
+    })
+
+    await this.userRepository.save({
+      email: user.email,
+      name: user.name,
+      id: user.id,
+      password: user.password,
     })
   }
 }

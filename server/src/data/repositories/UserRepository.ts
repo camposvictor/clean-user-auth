@@ -1,8 +1,8 @@
-import { User } from '../../domain/models'
+import { IUserData } from '../../domain/models'
 import { IUserRepository } from '../../domain/protocols'
 
 export class userRepository implements IUserRepository {
-  users: User[]
+  users: IUserData[]
 
   constructor() {
     this.users = []
@@ -14,7 +14,7 @@ export class userRepository implements IUserRepository {
     return Promise.resolve(user)
   }
 
-  save(user: User) {
+  save(user: IUserData) {
     this.users.push(user)
     return Promise.resolve()
   }
