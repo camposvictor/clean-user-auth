@@ -1,7 +1,7 @@
 import { IUserData } from '../../domain/models'
 import { IUserRepository } from '../../domain/protocols'
 
-export class userRepository implements IUserRepository {
+export class UserRepository implements IUserRepository {
   users: IUserData[]
 
   constructor() {
