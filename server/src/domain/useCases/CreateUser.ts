@@ -1,7 +1,7 @@
-import { User } from '../models'
+import { IUserData, User } from '../models'
 import { IHasher, IIdGenerator, IUserRepository } from '../protocols'
 
-type Params = Omit<User, 'id'>
+type Params = Omit<IUserData, 'id'>
 
 export class CreateUser {
   constructor(
