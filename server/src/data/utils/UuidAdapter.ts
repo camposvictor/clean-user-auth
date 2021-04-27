@@ -1,8 +1,8 @@
-import { uuid } from 'uuidv4'
+import { v4 } from 'uuid'
 import { IIdGenerator } from '../../domain/protocols'
 
 export class UuidAdapter implements IIdGenerator {
   generate() {
-    return uuid()
+    return v4()
   }
 }
