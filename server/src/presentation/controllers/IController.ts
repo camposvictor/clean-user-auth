@@ -1,8 +1,8 @@
-type ControllerResponse = {
+export type ControllerResponse = {
   statusCode: number
   body: object
 }
 
-export interface IController<Request = object> {
-  handle: (req: Request) => Promise<ControllerResponse>
+export interface IController {
+  handle: (req: any) => Promise<ControllerResponse>
 }
