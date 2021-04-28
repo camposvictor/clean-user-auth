@@ -19,7 +19,7 @@ export class Authentication {
       throw new Error('user not found')
     }
 
-    const isValid = await this.hashComparer.compare(user.password, password)
+    const isValid = await this.hashComparer.compare(password, user.password)
 
     if (!isValid) {
       throw new Error('incorrect password')
