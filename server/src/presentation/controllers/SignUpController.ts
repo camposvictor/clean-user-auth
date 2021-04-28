@@ -1,4 +1,4 @@
-import { IController, ControllerResponse } from '.'
+import { IController } from '.'
 import { CreateUser } from '../../domain/useCases'
 
 export type Request = {
@@ -10,7 +10,7 @@ export type Request = {
 export class SignUpController implements IController {
   constructor(private createUser: CreateUser) {}
 
-  async handle(req: Request): Promise<ControllerResponse> {
+  async handle(req: Request) {
     try {
       await this.createUser.execute(req)
 
