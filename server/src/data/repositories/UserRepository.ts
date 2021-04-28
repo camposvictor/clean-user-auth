@@ -1,21 +1,21 @@
-import { IUserData } from '../../domain/models'
+import { IUserData, User } from '../../domain/models'
 import { IUserRepository } from '../../domain/protocols'
 
 export class UserRepository implements IUserRepository {
-  users: IUserData[]
+  static users: IUserData[]
 
   constructor() {
-    this.users = []
+    UserRepository.users = []
   }
 
   findByEmail(email: string) {
-    const user = this.users.find((user) => user.email === email)
+    const user = UserRepository.users.find((user) => user.email === email)
 
     return Promise.resolve(user)
   }
 
   save(user: IUserData) {
-    this.users.push(user)
+    UserRepository.users.push(user)
     return Promise.resolve()
   }
 }
