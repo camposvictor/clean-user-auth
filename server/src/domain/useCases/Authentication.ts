@@ -25,7 +25,8 @@ export class Authentication {
       throw new Error('incorrect password')
     }
 
-    const token = this.encrypter.encrypt(user.id)
+    const token = await this.encrypter.encrypt(user.id)
+
     return {
       token,
       name: user.name,
