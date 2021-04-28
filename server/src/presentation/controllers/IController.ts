@@ -1,4 +1,4 @@
-export type ControllerResponse = {
+type ControllerResponse = {
   statusCode: number
   body: object
 }
