@@ -5,7 +5,7 @@ type Params = {
   password: string
 }
 
-export class Authetication {
+export class Authentication {
   constructor(
     private encrypter: IEncrypter,
     private hashComparer: IHashComparer,
