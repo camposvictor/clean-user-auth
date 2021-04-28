@@ -7,5 +7,4 @@ app.use(router)
 
 app.listen(3333, () => {
   console.log('Server running')
-  console.log(process.env.SECRET_KEY)
 })
