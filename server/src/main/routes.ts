@@ -1,8 +1,7 @@
 import { Router } from 'express'
 import { ExpressAdapter } from './adapters'
 
-import { makeSignUpController } from './factories'
-import { makeLoginController } from './factories/LoginControllerFactory'
+import { makeLoginController, makeSignUpController } from './factories'
 
 const router = Router()
 
