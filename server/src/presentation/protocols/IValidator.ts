@@ -1,3 +1,3 @@
 export interface IValidator {
-  validate: (params: any) => object | void
+  validate: (params: any) => string | string[]
 }
