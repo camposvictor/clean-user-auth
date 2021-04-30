@@ -1,5 +1,5 @@
-import { IController } from '.'
 import { Authentication } from '../../domain/useCases'
+import { IController } from '../protocols'
 
 type Request = {
   email: string

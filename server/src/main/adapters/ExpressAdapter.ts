@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { IController } from '../../presentation/controllers'
+import { IController } from '../../presentation/protocols'
 
 export class ExpressAdapter {
   static route(controller: IController) {

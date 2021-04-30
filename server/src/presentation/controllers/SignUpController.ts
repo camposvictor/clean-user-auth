@@ -1,5 +1,5 @@
-import { IController } from '.'
 import { CreateUser } from '../../domain/useCases'
+import { IController } from '../protocols'
 
 export type Request = {
   name: string
