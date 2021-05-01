@@ -5,6 +5,11 @@ type Params = {
   password: string
 }
 
+type Result = {
+  token: string
+  name: string
+}
+
 export class Authentication {
   constructor(
     private encrypter: IEncrypter,
@@ -12,7 +17,7 @@ export class Authentication {
     private userRepository: IUserRepository
   ) {}
 
-  async execute({ email, password }: Params) {
+  async execute({ email, password }: Params): Promise<Result> {
     const user = await this.userRepository.findByEmail(email)
 
     if (!user) {
