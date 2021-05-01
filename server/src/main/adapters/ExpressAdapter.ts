@@ -12,7 +12,7 @@ export class ExpressAdapter {
 
       const response = await controller.handle(request)
 
-      return res.status(response.statusCode).json(response.body)
+      return res.status(response.statusCode).json(response?.body)
     }
   }
 }
