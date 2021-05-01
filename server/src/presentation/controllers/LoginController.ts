@@ -1,5 +1,5 @@
 import { Authentication } from '../../domain/useCases'
-import { IController, IValidator } from '../protocols'
+import { IController, HttpResponse, IValidator } from '../protocols'
 
 type Request = {
   email: string
@@ -12,7 +12,7 @@ export class LoginController implements IController {
     private validator: IValidator
   ) {}
 
-  async handle({ email, password }: Request) {
+  async handle({ email, password }: Request): Promise<HttpResponse> {
     const errors = await this.validator.validate({ email, password })
 
     if (errors) {

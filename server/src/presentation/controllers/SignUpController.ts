@@ -1,5 +1,5 @@
 import { CreateUser } from '../../domain/useCases'
-import { IController, IValidator } from '../protocols'
+import { HttpResponse, IController, IValidator } from '../protocols'
 
 export type Request = {
   name: string
@@ -10,7 +10,7 @@ export type Request = {
 export class SignUpController implements IController {
   constructor(private createUser: CreateUser, private validator: IValidator) {}
 
-  async handle(req: Request) {
+  async handle(req: Request): Promise<HttpResponse> {
     const errors = await this.validator.validate({
       email: req.email,
       password: req.password,
