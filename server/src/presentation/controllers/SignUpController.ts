@@ -29,7 +29,7 @@ export class SignUpController implements IController {
 
       return {
         statusCode: 201,
-        body: {},
+        body: null,
       }
     } catch (error) {
       return {
