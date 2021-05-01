@@ -3,6 +3,8 @@ import { IHasher, IIdGenerator, IUserRepository } from '../protocols'
 
 type Params = Omit<IUserData, 'id'>
 
+type Result = void
+
 export class CreateUser {
   constructor(
     private userRepository: IUserRepository,
@@ -10,7 +12,7 @@ export class CreateUser {
     private hasher: IHasher
   ) {}
 
-  async execute(params: Params) {
+  async execute(params: Params): Promise<Result> {
     const userAlreadyExists = await this.userRepository.findByEmail(
       params.email
     )
