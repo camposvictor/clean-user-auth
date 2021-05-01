@@ -1,8 +1,8 @@
-import { IUserData, User } from '../../domain/models'
+import { UserDTO } from '../../domain/models'
 import { IUserRepository } from '../../domain/protocols'
 
 export class UserRepository implements IUserRepository {
-  static users: IUserData[]
+  static users: UserDTO[]
 
   constructor() {
     UserRepository.users = []
@@ -14,7 +14,7 @@ export class UserRepository implements IUserRepository {
     return Promise.resolve(user)
   }
 
-  save(user: IUserData) {
+  save(user: UserDTO) {
     UserRepository.users.push(user)
     return Promise.resolve()
   }

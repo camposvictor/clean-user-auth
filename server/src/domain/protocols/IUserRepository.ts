@@ -1,6 +1,6 @@
-import { IUserData } from '../models'
+import { UserDTO } from '../models'
 
 export interface IUserRepository {
-  findByEmail: (email: string) => Promise<IUserData | undefined>
-  save: (user: IUserData) => Promise<void>
+  findByEmail: (email: string) => Promise<UserDTO | undefined>
+  save: (user: UserDTO) => Promise<void>
 }

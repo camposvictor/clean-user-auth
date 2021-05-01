@@ -1,6 +1,6 @@
 import { InvalidParamError, MissingParamError } from '../errors'
 
-export interface IUserData {
+export interface UserDTO {
   id: string
   name: string
   email: string
@@ -13,7 +13,7 @@ export class User {
   public readonly password: string
   public readonly name: string
 
-  constructor(params: IUserData) {
+  constructor(params: UserDTO) {
     this.validate(params)
 
     this.id = params.id
@@ -22,7 +22,7 @@ export class User {
     this.name = params.name
   }
 
-  validate(params: IUserData) {
+  validate(params: UserDTO) {
     Object.entries(params).forEach(([param, value]) => {
       if (!value.trim()) {
         throw new MissingParamError(param)
