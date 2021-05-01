@@ -1,10 +1,12 @@
 import { SignUpController } from '../../presentation/controllers/SignUpController'
-import { YupSignUpValidator } from '../../presentation/validation/YupSignUpValidator'
+import { YupSignUpValidator } from '../../presentation/validation'
 import { makeCreateUser } from './CreateUserFactory'
 
 export const makeSignUpController = () => {
   const validator = new YupSignUpValidator()
-  const signUpController = new SignUpController(makeCreateUser(), validator)
+  const createUserUseCase = makeCreateUser()
+
+  const signUpController = new SignUpController(createUserUseCase, validator)
 
   return signUpController
 }
