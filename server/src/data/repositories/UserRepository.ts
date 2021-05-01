@@ -8,13 +8,13 @@ export class UserRepository implements IUserRepository {
     UserRepository.users = []
   }
 
-  findByEmail(email: string) {
+  findByEmail(email: string): Promise<UserDTO | undefined> {
     const user = UserRepository.users.find((user) => user.email === email)
 
     return Promise.resolve(user)
   }
 
-  save(user: UserDTO) {
+  save(user: UserDTO): Promise<void> {
     UserRepository.users.push(user)
     return Promise.resolve()
   }
