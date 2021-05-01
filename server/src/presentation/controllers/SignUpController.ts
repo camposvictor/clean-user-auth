@@ -19,7 +19,7 @@ export class SignUpController implements IController {
 
     if (errors) {
       return {
-        body: errors,
+        body: { errors },
         statusCode: 400,
       }
     }
