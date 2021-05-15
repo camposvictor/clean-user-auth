@@ -1,7 +1,7 @@
-import { IUserData, User } from '../models'
+import { UserDTO, User } from '../models'
 import { IHasher, IIdGenerator, IUserRepository } from '../protocols'
 
-type Params = Omit<IUserData, 'id'>
+type Params = Omit<UserDTO, 'id'>
 
 type Result = void
 
