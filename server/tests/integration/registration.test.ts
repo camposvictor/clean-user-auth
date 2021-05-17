@@ -1,6 +1,6 @@
 import request from 'supertest'
 import faker from 'faker'
-import { app } from '../../src/main/app'
+import { connection } from '../utils/connection'
 
 const mockRequest = () => ({
   email: faker.internet.email(),
@@ -9,6 +9,16 @@ const mockRequest = () => ({
 })
 
 describe('Registration', () => {
+  let app: any
+
+  beforeAll(async () => {
+    app = await connection.create()
+  })
+
+  afterAll(async () => {
+    await connection.close()
+  })
+
   it('should registrate a user with valid credentials', async () => {
     const response = await request(app).post('/signup').send(mockRequest())
 
