@@ -1,5 +1,9 @@
+import 'reflect-metadata'
+import { createConnection } from 'typeorm'
 import { app } from './app'
 
-app.listen(3333, () => {
-  console.log('Server running')
+createConnection().then(() => {
+  app.listen(3333, () => {
+    console.log('Server running')
+  })
 })
