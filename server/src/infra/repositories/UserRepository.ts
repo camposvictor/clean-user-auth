@@ -1,21 +1,35 @@
+import { EntityManager, getManager } from 'typeorm'
 import { UserDTO } from '../../domain/models'
 import { IUserRepository } from '../../domain/protocols'
+import { DBUser } from '../database/entity/User'
+import { UserMapper } from '../mappers/UserMapper'
 
 export class UserRepository implements IUserRepository {
-  static users: UserDTO[]
+  private manager: EntityManager
+  private mapper: UserMapper
 
   constructor() {
-    UserRepository.users = []
+    this.manager = getManager()
+    this.mapper = new UserMapper()
   }
 
-  findByEmail(email: string): Promise<UserDTO | undefined> {
-    const user = UserRepository.users.find((user) => user.email === email)
+  async findByEmail(email: string): Promise<UserDTO | undefined> {
+    const user = await this.manager.findOne(DBUser, {
+      where: {
+        email,
+      },
+    })
 
-    return Promise.resolve(user)
+    if (!user) {
+      return
+    }
+
+    return this.mapper.toDTO(user)
   }
 
-  save(user: UserDTO): Promise<void> {
-    UserRepository.users.push(user)
-    return Promise.resolve()
+  async save(userDTO: UserDTO): Promise<void> {
+    const user = this.manager.create(DBUser, this.mapper.toPersistence(userDTO))
+
+    await this.manager.save(user)
   }
 }
