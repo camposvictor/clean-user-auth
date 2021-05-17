@@ -1,19 +1,12 @@
 import request from 'supertest'
 import faker from 'faker'
-import { User } from '../../src/domain/models'
-import { UuidAdapter } from '../../src/data/utils'
 import { server } from '../../src/main/server'
 
-const uuidAdapter = new UuidAdapter()
-
-const makeSut = () => {
-  const email = faker.internet.email()
-  const password = faker.internet.password()
-  const name = faker.name.findName()
-  const id = uuidAdapter.generate()
-
-  return new User({ email, password, name, id })
-}
+const mockRequest = () => ({
+  email: faker.internet.email(),
+  password: faker.internet.password(),
+  name: faker.name.firstName(),
+})
 
 describe('Registration', () => {
   afterAll(() => {
@@ -21,13 +14,7 @@ describe('Registration', () => {
   })
 
   it('should registrate a user with valid credentials', async () => {
-    const sut = makeSut()
-
-    const response = await request(server).post('/signup').send({
-      email: sut.email,
-      password: sut.password,
-      name: sut.name,
-    })
+    const response = await request(server).post('/signup').send(mockRequest())
 
     expect(response.statusCode).toBe(201)
   })
