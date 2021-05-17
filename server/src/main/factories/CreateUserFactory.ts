@@ -1,6 +1,6 @@
-import { BcryptAdapter } from '../../data/crypto'
-import { UserRepository } from '../../data/repositories'
-import { UuidAdapter } from '../../data/utils'
+import { BcryptAdapter } from '../../infra/crypto'
+import { UserRepository } from '../../infra/repositories'
+import { UuidAdapter } from '../../infra/utils'
 import { CreateUser } from '../../domain/useCases'
 
 export const makeCreateUser = () => {

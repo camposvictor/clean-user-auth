@@ -1,7 +1,7 @@
 import dotenv from 'dotenv'
 
-import { BcryptAdapter, JwtAdapter } from '../../data/crypto'
-import { UserRepository } from '../../data/repositories'
+import { BcryptAdapter, JwtAdapter } from '../../infra/crypto'
+import { UserRepository } from '../../infra/repositories'
 import { Authentication } from '../../domain/useCases'
 
 dotenv.config()
