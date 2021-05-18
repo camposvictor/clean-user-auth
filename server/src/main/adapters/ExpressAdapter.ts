@@ -10,9 +10,9 @@ export class ExpressAdapter {
         userId: req.userId,
       }
 
-      const response = await controller.handle(request)
+      const { statusCode, body } = await controller.handle(request)
 
-      return res.status(response.statusCode).json(response?.body)
+      return res.status(statusCode).json(body || undefined)
     }
   }
 }
