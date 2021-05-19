@@ -12,7 +12,11 @@ export class ExpressAdapter {
 
       const { statusCode, body } = await controller.handle(request)
 
-      return res.status(statusCode).json(body || undefined)
+      if (body) {
+        return res.status(statusCode).json(body)
+      }
+
+      return res.status(statusCode)
     }
   }
 }
