@@ -3,7 +3,9 @@ import { IHasher, IIdGenerator, IUserRepository } from '../protocols'
 
 type Params = Omit<UserDTO, 'id'>
 
-type Result = void
+type Result = {
+  message: string
+}
 
 export class CreateUser {
   constructor(
@@ -38,5 +40,9 @@ export class CreateUser {
       id: user.id,
       password: hashedPassword,
     })
+
+    return {
+      message: 'User created',
+    }
   }
 }
