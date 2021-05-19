@@ -1,0 +1,43 @@
+.button {
+  font-size: 1rem;
+  padding: .8rem 1.5rem;
+  min-width: 64px;
+  border-radius: 4px;
+  font-weight: 600;
+  transition: .2s ease;
+  cursor: pointer;
+  white-space: nowrap;
+  display: flex;
+  align-items:center;
+}
+
+.button svg {
+  margin-right: .5rem;
+}
+
+.contained {
+  composes: button;
+  color: #FFF;
+  background-color: #257BF4;
+  border: none;
+}
+
+.contained:hover {
+  background-color: var(--primary-dark);
+}
+
+.outlined {
+  composes: button;
+  color: var(--primary);
+  background-color: transparent;
+  border: none;
+  border: 1px solid var(--border);
+}
+
+.outlined:hover {
+  background-color: var(--primary-light);
+}
+
+.fullWidth {
+  width: 100%
+}
