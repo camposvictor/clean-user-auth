@@ -1,0 +1,17 @@
+.inputBlock {
+  margin-bottom: 1rem;
+}
+
+.buttonsContainer {
+  display: flex;
+}
+
+.buttonsContainer button:first-child {
+  margin-right: 1rem;
+}
+
+@media (max-width: 450px) {
+  .buttonsContainer button {
+    flex: 1 1 auto;
+ }
+}
