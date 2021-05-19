@@ -25,10 +25,11 @@ export class SignUpController implements IController {
     }
 
     try {
-      await this.createUser.execute(req)
+      const response = await this.createUser.execute(req)
 
       return {
         statusCode: 201,
+        body: response,
       }
     } catch (error) {
       return {
