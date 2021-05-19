@@ -1,0 +1,36 @@
+.container {
+  width: 100vw;
+  height: 100vh;
+  background-color: #FFF;
+
+  display: flex;;
+  align-items: center;
+  justify-content: center;
+}
+
+.mainContent {
+  width: 100%;
+  max-width: 450px;
+  padding: 4rem 2rem;
+  background-color: #FFF;
+  border-radius: 6px;
+  border: 1px solid #D2D8E4;
+}
+
+.mainContent h1 {
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 450px) {
+  .mainContent {
+    padding: 1rem;
+    height: 100vh;
+    border-radius: initial
+  }
+
+  .container {
+    height: auto;
+  }
+}
+
+
