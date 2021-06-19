@@ -23,6 +23,7 @@ const Input: React.ForwardRefRenderFunction<HTMLInputElement, Props> = (
           id={id}
           required
           ref={ref}
+          autoComplete="off"
           {...props}
         />
         <label htmlFor={id}>{label}</label>
