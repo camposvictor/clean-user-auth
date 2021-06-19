@@ -37,7 +37,7 @@ git clone https://github.com/camposvictor/clean-user-auth.git
 Create a .env file on the project's root and configure your jwt secret key
 
 ```bash
-SECRET_KEY=<YOUR_PRIVATE_KEY>
+SECRET_KEY=<YOUR_SECRET_KEY>
 ```
 
 Run:
