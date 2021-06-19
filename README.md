@@ -40,8 +40,10 @@ SECRET_KEY=<YOUR_PRIVATE_KEY>
 
 Run:
 ```bash
-yarn start
+yarn dev
 ```
+
+__Running on port 3333__
 ### Run Frontend
 
 
@@ -54,9 +56,10 @@ yarn start
   npm install
 
   # run
-  yarn start
+  yarn dev
 ```
 
+__Running on port 3000__
 
 
 
