@@ -43,9 +43,10 @@ SECRET_KEY=<YOUR_PRIVATE_KEY>
 Run:
 ```bash
 yarn dev
+
+# running on port 3333
 ```
 
-__Running on port 3333__
 ### Run Frontend
 
 
@@ -59,9 +60,9 @@ __Running on port 3333__
 
   # run
   yarn dev
-```
 
-__Running on port 3000__
+  # running on port 3000
+```
 
 
 
