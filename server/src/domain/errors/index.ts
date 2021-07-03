@@ -1,2 +1,5 @@
 export * from './InvalidParamError'
 export * from './MissingParamError'
+export * from './NotFoundError'
+export * from './IncorrectPasswordError'
+export * from './EmailAlreadyTakenError'
