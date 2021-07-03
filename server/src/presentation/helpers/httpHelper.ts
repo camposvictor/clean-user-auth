@@ -20,7 +20,7 @@ export function notFound(message: string): HttpResponse {
 
 export function conflict(message: string): HttpResponse {
   return {
-    statusCode: 401,
+    statusCode: 409,
     body: {
       message,
     },
