@@ -1,11 +1,15 @@
+import { failure, Result, success } from '../../shared/result'
+import {
+  InvalidParamError,
+  MissingParamError,
+  EmailAlredyTakenError,
+} from '../errors'
+
 import { UserDTO, User } from '../models'
 import { IHasher, IIdGenerator, IUserRepository } from '../protocols'
 
 type Params = Omit<UserDTO, 'id'>
-
-type Result = {
-  message: string
-}
+type Response = Promise<Result<MissingParamError | InvalidParamError, User>>
 
 export class CreateUser {
   constructor(
@@ -14,35 +18,36 @@ export class CreateUser {
     private hasher: IHasher
   ) {}
 
-  async execute(params: Params): Promise<Result> {
+  async execute(params: Params): Response {
+    const id = this.idGenerator.generate()
+
+    const userOrError = User.create({
+      ...params,
+      id,
+    })
+
+    if (userOrError.isFailure()) {
+      return failure(userOrError.value)
+    }
+
     const userAlreadyExists = await this.userRepository.findByEmail(
       params.email
     )
 
     if (userAlreadyExists) {
-      throw new Error('this email is already taken')
+      return failure(new EmailAlredyTakenError())
     }
 
-    const id = this.idGenerator.generate()
-
-    const user = new User({
-      email: params.email,
-      name: params.name,
-      id,
-      password: params.password,
-    })
-
-    const hashedPassword = await this.hasher.hash(params.password)
+    const user = userOrError.value
+    const hashedPassword = await this.hasher.hash(user.password.value)
 
     await this.userRepository.save({
-      email: user.email,
-      name: user.name,
+      email: user.email.value,
+      name: user.name.value,
       id: user.id,
       password: hashedPassword,
     })
 
-    return {
-      message: 'User created',
-    }
+    return success(user)
   }
 }

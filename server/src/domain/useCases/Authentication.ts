@@ -1,3 +1,13 @@
+import { failure, Result, success } from '../../shared/result'
+import {
+  IncorrectPasswordError,
+  InvalidParamError,
+  MissingParamError,
+  NotFoundError,
+} from '../errors'
+import { User } from '../models'
+import { Email } from '../models/Email'
+import { Password } from '../models/Password'
 import { IEncrypter, IHashComparer, IUserRepository } from '../protocols'
 
 type Params = {
@@ -5,10 +15,17 @@ type Params = {
   password: string
 }
 
-type Result = {
+type AuthenticationData = {
   token: string
   name: string
 }
+
+type Response = Promise<
+  Result<
+    NotFoundError | InvalidParamError | MissingParamError,
+    AuthenticationData
+  >
+>
 
 export class Authentication {
   constructor(
@@ -17,24 +34,38 @@ export class Authentication {
     private userRepository: IUserRepository
   ) {}
 
-  async execute({ email, password }: Params): Promise<Result> {
+  async execute({ email, password }: Params): Response {
+    const emailOrError = Email.create(email)
+    const passwordOrError = Password.create(password)
+
+    if (emailOrError.isFailure()) {
+      return failure(emailOrError.value)
+    }
+
+    if (passwordOrError.isFailure()) {
+      return failure(passwordOrError.value)
+    }
+
     const user = await this.userRepository.findByEmail(email)
 
     if (!user) {
-      throw new Error('user not found')
+      return failure(new NotFoundError('user'))
     }
 
-    const isValid = await this.hashComparer.compare(password, user.password)
+    const passwordMatch = await this.hashComparer.compare(
+      password,
+      user.password
+    )
 
-    if (!isValid) {
-      throw new Error('incorrect password')
+    if (!passwordMatch) {
+      return failure(new IncorrectPasswordError())
     }
 
     const token = await this.encrypter.encrypt(user.id)
 
-    return {
+    return success({
       token,
       name: user.name,
-    }
+    })
   }
 }
