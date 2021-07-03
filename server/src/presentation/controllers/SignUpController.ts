@@ -7,6 +7,7 @@ import {
 
 import {
   badRequest,
+  conflict,
   created,
   notFound,
   serverError,
@@ -42,7 +43,7 @@ export class SignUpController implements IController {
           }
 
           case EmailAlredyTakenError: {
-            return badRequest(error.message)
+            return conflict(error.message)
           }
 
           case MissingParamError: {
