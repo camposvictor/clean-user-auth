@@ -1,4 +1,8 @@
 import { InvalidParamError, MissingParamError } from '../errors'
+import { failure, Result, success } from '../../shared/result'
+import { Email } from './Email'
+import { Password } from './Password'
+import { Name } from './Name'
 
 export interface UserDTO {
   id: string
@@ -9,37 +13,46 @@ export interface UserDTO {
 
 export class User {
   public readonly id: string
-  public readonly email: string
-  public readonly password: string
-  public readonly name: string
+  public readonly email: Email
+  public readonly password: Password
+  public readonly name: Name
 
-  constructor(params: UserDTO) {
-    this.validate(params)
-
-    this.id = params.id
-    this.email = params.email
-    this.password = params.password
-    this.name = params.name
+  constructor(id: string, email: Email, name: Name, password: Password) {
+    this.id = id
+    this.email = email
+    this.password = password
+    this.name = name
   }
 
-  validate(params: UserDTO) {
-    Object.entries(params).forEach(([param, value]) => {
-      if (!value.trim()) {
-        throw new MissingParamError(param)
-      }
-    })
+  static create({
+    id,
+    email,
+    password,
+    name,
+  }: UserDTO): Result<InvalidParamError | MissingParamError, User> {
+    const emailOrError = Email.create(email)
+    const passwordOrError = Password.create(password)
+    const nameOrError = Name.create(name)
 
-    if (params.name.length < 2 || params.name.length > 256) {
-      throw new InvalidParamError('name')
+    if (emailOrError.isFailure()) {
+      return failure(emailOrError.value)
     }
 
-    if (params.password.length < 6 || params.password.length > 256) {
-      throw new InvalidParamError('password')
+    if (passwordOrError.isFailure()) {
+      return failure(passwordOrError.value)
     }
-    const emailTester = /^[-!#$%&'*+/0-9=?A-Z^_a-z`{|}~](\.?[-!#$%&'*+/0-9=?A-Z^_a-z`{|}~])*@[a-zA-Z0-9](-*\.?[a-zA-Z0-9])*\.[a-zA-Z](-?[a-zA-Z0-9])+$/
 
-    if (!emailTester.test(params.email)) {
-      throw new InvalidParamError('email')
+    if (nameOrError.isFailure()) {
+      return failure(nameOrError.value)
     }
+
+    const user = new User(
+      id,
+      emailOrError.value,
+      nameOrError.value,
+      passwordOrError.value
+    )
+
+    return success(user)
   }
 }
