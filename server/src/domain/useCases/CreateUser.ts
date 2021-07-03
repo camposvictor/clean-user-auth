@@ -9,7 +9,9 @@ import { UserDTO, User } from '../models'
 import { IHasher, IIdGenerator, IUserRepository } from '../protocols'
 
 type Params = Omit<UserDTO, 'id'>
-type Response = Promise<Result<MissingParamError | InvalidParamError, User>>
+type Response = Promise<
+  Result<MissingParamError | InvalidParamError, Omit<UserDTO, 'password'>>
+>
 
 export class CreateUser {
   constructor(
@@ -41,13 +43,19 @@ export class CreateUser {
     const user = userOrError.value
     const hashedPassword = await this.hasher.hash(user.password.value)
 
-    await this.userRepository.save({
+    const userDTO = {
       email: user.email.value,
       name: user.name.value,
       id: user.id,
       password: hashedPassword,
-    })
+    }
 
-    return success(user)
+    await this.userRepository.save(userDTO)
+
+    return success({
+      email: userDTO.email,
+      id: userDTO.id,
+      name: userDTO.name,
+    })
   }
 }
